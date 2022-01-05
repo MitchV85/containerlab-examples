@@ -1,0 +1,306 @@
+###################################################################
+# Maintained by Mitch Vaughan                                     #
+# Avaialble at: https://github.com/MitchV85/containerlab-examples #
+###################################################################
+
+
+name: dual-dc
+prefix: ""
+
+mgmt:
+  network: statics
+  ipv4_subnet: 172.100.100.0/24
+
+topology:
+
+  defaults:
+    env:
+      INTFTYPE: et
+
+  kinds:
+    ceos:
+      image: ceos:4.27.1F
+
+  nodes:
+
+#########################
+# Data Center A - Spine #
+#########################
+
+    a-spine1:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/a-spine1.cfg
+      mgmt_ipv4: 172.100.100.101
+      ports:
+        - '22001:22'
+        - '8001:80'
+        - '44301:443'
+
+    a-spine2:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/a-spine2.cfg
+      mgmt_ipv4: 172.100.100.102
+      ports:
+        - '22002:22'
+        - '8002:80'
+        - '44302:443'
+
+#########################
+# Data Center A - Leaf  #
+#########################
+
+    a-leaf1:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/a-leaf1.cfg
+      mgmt_ipv4: 172.100.100.103
+      ports:
+        - '22003:22'
+        - '8003:80'
+        - '44303:443'
+
+    a-leaf2:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/a-leaf2.cfg
+      mgmt_ipv4: 172.100.100.104
+      ports:
+        - '22004:22'
+        - '8004:80'
+        - '44304:443'
+
+    a-leaf3:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/a-leaf3.cfg
+      mgmt_ipv4: 172.100.100.105
+      ports:
+        - '22005:22'
+        - '8005:80'
+        - '44305:443'
+
+    a-leaf4:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/a-leaf4.cfg
+      mgmt_ipv4: 172.100.100.106
+      ports:
+        - '22006:22'
+        - '8006:80'
+        - '44306:443'
+
+    a-border1:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/a-border1.cfg
+      mgmt_ipv4: 172.100.100.107
+      ports:
+        - '22007:22'
+        - '8007:80'
+        - '44307:443'
+
+    a-border2:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/a-border2.cfg
+      mgmt_ipv4: 172.100.100.108
+      ports:
+        - '22008:22'
+        - '8008:80'
+        - '44308:443'
+
+#########################
+# Data Center A - Hosts #
+#########################
+
+#########################
+# Data Center B - Spine #
+#########################
+
+    b-spine1:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/b-spine1.cfg
+      mgmt_ipv4: 172.100.100.109
+      ports:
+        - '22009:22'
+        - '8009:80'
+        - '44309:443'
+
+    b-spine2:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/b-spine2.cfg
+      mgmt_ipv4: 172.100.100.110
+      ports:
+        - '22010:22'
+        - '8010:80'
+        - '44310:443'
+
+#########################
+# Data Center B - Leaf  #
+#########################
+
+    b-leaf1:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/b-leaf1.cfg
+      mgmt_ipv4: 172.100.100.111
+      ports:
+        - '22011:22'
+        - '8011:80'
+        - '44311:443'
+
+    b-leaf2:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/b-leaf2.cfg
+      mgmt_ipv4: 172.100.100.112
+      ports:
+        - '22012:22'
+        - '8012:80'
+        - '44312:443'
+
+    b-leaf3:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/b-leaf3.cfg
+      mgmt_ipv4: 172.100.100.113
+      ports:
+        - '22013:22'
+        - '8013:80'
+        - '44313:443'
+
+    b-leaf4:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/b-leaf4.cfg
+      mgmt_ipv4: 172.100.100.114
+      ports:
+        - '22014:22'
+        - '8014:80'
+        - '44314:443'
+
+    b-border1:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/b-border1.cfg
+      mgmt_ipv4: 172.100.100.115
+      ports:
+        - '22015:22'
+        - '8015:80'
+        - '44315:443'
+
+    b-border2:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/b-border2.cfg
+      mgmt_ipv4: 172.100.100.116
+      ports:
+        - '22016:22'
+        - '8016:80'
+        - '44316:443'
+
+#########################
+# Data Center B - Hosts #
+#########################
+
+#########################
+# DCI / Backbone        #
+#########################
+    bb1:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/bb1.cfg
+      mgmt_ipv4: 172.100.100.117
+      ports:
+        - '22017:22'
+        - '8017:80'
+        - '44317:443'
+
+    bb2:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/bb2.cfg
+      mgmt_ipv4: 172.100.100.118
+      ports:
+        - '22018:22'
+        - '8018:80'
+        - '44318:443'
+
+    bb3:
+      kind: ceos
+      startup-config: ./containerlab-examples/dual-dc/configs/bb3.cfg
+      mgmt_ipv4: 172.100.100.119
+      ports:
+        - '22019:22'
+        - '8019:80'
+        - '44319:443'
+
+  links:
+####################
+# A-SPINE1 to LEAF #
+####################
+    - endpoints: ["a-spine1:et1_1", "a-leaf1:et53_1"]
+    - endpoints: ["a-spine1:et2_1", "a-leaf2:et53_1"]
+    - endpoints: ["a-spine1:et3_1", "a-leaf3:et53_1"]
+    - endpoints: ["a-spine1:et4_1", "a-leaf4:et53_1"]
+    - endpoints: ["a-spine1:et5_1", "a-border1:et53_1"]
+    - endpoints: ["a-spine1:et6_1", "a-border2:et53_1"]
+####################
+# A-SPINE2 to LEAF #
+####################
+    - endpoints: ["a-spine2:et1_1", "a-leaf1:et54_1"]
+    - endpoints: ["a-spine2:et2_1", "a-leaf2:et54_1"]
+    - endpoints: ["a-spine2:et3_1", "a-leaf3:et54_1"]
+    - endpoints: ["a-spine2:et4_1", "a-leaf4:et54_1"]
+    - endpoints: ["a-spine2:et5_1", "a-border1:et54_1"]
+    - endpoints: ["a-spine2:et6_1", "a-border2:et54_1"]
+####################################
+# A-LEAF1 / A-LEAF2 MLAG PEER-LINK #
+####################################
+    - endpoints: ["a-leaf1:et55_1", "a-leaf2:et55_1"]
+    - endpoints: ["a-leaf1:et56_1", "a-leaf2:et56_1"]
+####################################
+# A-LEAF3 / A-LEAF4 MLAG PEER-LINK #
+####################################
+    - endpoints: ["a-leaf3:et55_1", "a-leaf4:et55_1"]
+    - endpoints: ["a-leaf3:et56_1", "a-leaf4:et56_1"]
+########################################
+# A-BORDER1 / A-BORDER2 MLAG PEER-LINK #
+########################################
+    - endpoints: ["a-border1:et55_1", "a-border2:et55_1"]
+    - endpoints: ["a-border1:et56_1", "a-border2:et56_1"]
+########################################
+# A-BORDER1 / A-BORDER2 BACKBONE/DCI   #
+########################################
+    - endpoints: ["a-border1:et52_1", "bb1:et1_1"]
+    - endpoints: ["a-border2:et52_1", "bb1:et2_1"]
+######################
+# B-SPINE1 to B-LEAF #
+######################
+    - endpoints: ["b-spine1:et1_1", "b-leaf1:et53_1"]
+    - endpoints: ["b-spine1:et2_1", "b-leaf2:et53_1"]
+    - endpoints: ["b-spine1:et3_1", "b-leaf3:et53_1"]
+    - endpoints: ["b-spine1:et4_1", "b-leaf4:et53_1"]
+    - endpoints: ["b-spine1:et5_1", "b-border1:et53_1"]
+    - endpoints: ["b-spine1:et6_1", "b-border2:et53_1"]
+######################
+# B-SPINE2 to B-LEAF #
+######################
+    - endpoints: ["b-spine2:et1_1", "b-leaf1:et54_1"]
+    - endpoints: ["b-spine2:et2_1", "b-leaf2:et54_1"]
+    - endpoints: ["b-spine2:et3_1", "b-leaf3:et54_1"]
+    - endpoints: ["b-spine2:et4_1", "b-leaf4:et54_1"]
+    - endpoints: ["b-spine2:et5_1", "b-border1:et54_1"]
+    - endpoints: ["b-spine2:et6_1", "b-border2:et54_1"]
+####################################
+# B-LEAF1 / B-LEAF2 MLAG PEER-LINK #
+####################################
+    - endpoints: ["b-leaf1:et55_1", "b-leaf2:et55_1"]
+    - endpoints: ["b-leaf1:et56_1", "b-leaf2:et56_1"]
+####################################
+# B-LEAF3 / B-LEAF4 MLAG PEER-LINK #
+####################################
+    - endpoints: ["b-leaf3:et55_1", "b-leaf4:et55_1"]
+    - endpoints: ["b-leaf3:et56_1", "b-leaf4:et56_1"]
+########################################
+# B-BORDER1 / B-BORDER2 MLAG PEER-LINK #
+########################################
+    - endpoints: ["b-border1:et55_1", "b-border2:et55_1"]
+    - endpoints: ["b-border1:et56_1", "b-border2:et56_1"]
+########################################
+# B-BORDER1 / B-BORDER2 BACKBONE/DCI   #
+########################################
+    - endpoints: ["b-border1:et52_1", "bb2:et1_1"]
+    - endpoints: ["b-border2:et52_1", "bb2:et2_1"]
+##################
+# BACKBONE/DCI   #
+##################
+    - endpoints: ["bb1:et3_1", "bb2:et3_1"]
+    - endpoints: ["bb1:et4_1", "bb3:et1_1"]
+    - endpoints: ["bb2:et4_1", "bb3:et2_1"]
