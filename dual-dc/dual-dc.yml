@@ -1,3 +1,12 @@
+####################################################################################
+# Maintained by Mitch Vaughan                                                      #
+# End host docker repo: https://hub.docker.com/repository/docker/mitchv85/ohv-host #
+# ContainerLab Examples repo: https://github.com/MitchV85/containerlab-examples    #
+#                                                                                  #
+#                                                                                  #
+# More topologies will be added over time                                          #
+####################################################################################
+
 name: dual-dc
 prefix: ""
 
