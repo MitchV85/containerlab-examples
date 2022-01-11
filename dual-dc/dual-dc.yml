@@ -32,7 +32,7 @@ topology:
 
     a-spine1:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/a-spine1.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/a-spine1.cfg
       mgmt_ipv4: 172.100.100.101
       ports:
         - '22001:22'
@@ -41,7 +41,7 @@ topology:
 
     a-spine2:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/a-spine2.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/a-spine2.cfg
       mgmt_ipv4: 172.100.100.102
       ports:
         - '22002:22'
@@ -54,7 +54,7 @@ topology:
 
     a-leaf1:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/a-leaf1.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/a-leaf1.cfg
       mgmt_ipv4: 172.100.100.103
       ports:
         - '22003:22'
@@ -63,7 +63,7 @@ topology:
 
     a-leaf2:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/a-leaf2.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/a-leaf2.cfg
       mgmt_ipv4: 172.100.100.104
       ports:
         - '22004:22'
@@ -72,7 +72,7 @@ topology:
 
     a-leaf3:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/a-leaf3.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/a-leaf3.cfg
       mgmt_ipv4: 172.100.100.105
       ports:
         - '22005:22'
@@ -81,7 +81,7 @@ topology:
 
     a-leaf4:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/a-leaf4.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/a-leaf4.cfg
       mgmt_ipv4: 172.100.100.106
       ports:
         - '22006:22'
@@ -90,7 +90,7 @@ topology:
 
     a-border1:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/a-border1.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/a-border1.cfg
       mgmt_ipv4: 172.100.100.107
       ports:
         - '22007:22'
@@ -99,7 +99,7 @@ topology:
 
     a-border2:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/a-border2.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/a-border2.cfg
       mgmt_ipv4: 172.100.100.108
       ports:
         - '22008:22'
@@ -170,7 +170,7 @@ topology:
 
     b-spine1:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/b-spine1.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/b-spine1.cfg
       mgmt_ipv4: 172.100.100.109
       ports:
         - '22009:22'
@@ -179,7 +179,7 @@ topology:
 
     b-spine2:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/b-spine2.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/b-spine2.cfg
       mgmt_ipv4: 172.100.100.110
       ports:
         - '22010:22'
@@ -192,7 +192,7 @@ topology:
 
     b-leaf1:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/b-leaf1.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/b-leaf1.cfg
       mgmt_ipv4: 172.100.100.111
       ports:
         - '22011:22'
@@ -201,7 +201,7 @@ topology:
 
     b-leaf2:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/b-leaf2.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/b-leaf2.cfg
       mgmt_ipv4: 172.100.100.112
       ports:
         - '22012:22'
@@ -210,7 +210,7 @@ topology:
 
     b-leaf3:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/b-leaf3.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/b-leaf3.cfg
       mgmt_ipv4: 172.100.100.113
       ports:
         - '22013:22'
@@ -219,7 +219,7 @@ topology:
 
     b-leaf4:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/b-leaf4.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/b-leaf4.cfg
       mgmt_ipv4: 172.100.100.114
       ports:
         - '22014:22'
@@ -228,7 +228,7 @@ topology:
 
     b-border1:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/b-border1.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/b-border1.cfg
       mgmt_ipv4: 172.100.100.115
       ports:
         - '22015:22'
@@ -237,7 +237,7 @@ topology:
 
     b-border2:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/b-border2.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/b-border2.cfg
       mgmt_ipv4: 172.100.100.116
       ports:
         - '22016:22'
@@ -307,7 +307,7 @@ topology:
 #########################
     bb1:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/bb1.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/bb1.cfg
       mgmt_ipv4: 172.100.100.117
       ports:
         - '22017:22'
@@ -316,7 +316,7 @@ topology:
 
     bb2:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/bb2.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/bb2.cfg
       mgmt_ipv4: 172.100.100.118
       ports:
         - '22018:22'
@@ -325,7 +325,7 @@ topology:
 
     bb3:
       kind: ceos
-      startup-config: ./ohv-containerlabs/dual-dc/configs/bb3.cfg
+      startup-config: ./containerlab-examples/dual-dc/configs/bb3.cfg
       mgmt_ipv4: 172.100.100.119
       ports:
         - '22019:22'
