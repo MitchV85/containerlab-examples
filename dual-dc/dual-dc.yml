@@ -22,7 +22,7 @@ topology:
 
   kinds:
     ceos:
-      image: ceos:4.27.1F
+      image: ceos:4.27.1.1F
 
   nodes:
 
