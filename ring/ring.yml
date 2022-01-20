@@ -1,0 +1,96 @@
+####################################################################################
+# Maintained by Mitch Vaughan                                                      #
+# End host docker repo: https://hub.docker.com/repository/docker/mitchv85/ohv-host #
+# ContainerLab Examples repo: https://github.com/MitchV85/containerlab-examples    #
+#                                                                                  #
+#                                                                                  #
+# More topologies will be added over time                                          #
+####################################################################################
+
+name: ring
+prefix: ""
+
+mgmt:
+  network: statics
+  ipv4_subnet: 172.100.100.0/24
+
+topology:
+
+  defaults:
+    env:
+      INTFTYPE: et #Setting this environment variable to 'et' is required to support ISIS/OSPF on cEOS
+
+  kinds:
+    ceos:
+      image: ceos:4.27.1.1F
+
+    vr-csr:
+      image: vrnetlab/vr-csr:17.03.02
+
+  nodes:
+
+#########################
+# Ring Nodes            #
+#########################
+
+    CSR1:
+      kind: vr-csr
+      mgmt_ipv4: 172.100.100.101
+      ports:
+        - '22001:22'
+        - '8001:80'
+        - '44301:443'
+
+    CSR2:
+      kind: vr-csr
+      mgmt_ipv4: 172.100.100.102
+      ports:
+        - '22002:22'
+        - '8002:80'
+        - '44302:443'
+
+    CSR3:
+      kind: vr-csr
+      mgmt_ipv4: 172.100.100.103
+      ports:
+        - '22003:22'
+        - '8003:80'
+        - '44303:443'
+
+    EOS1:
+      kind: ceos
+      startup-config: ./containerlab-examples/ring/configs/eos1.cfg
+      mgmt_ipv4: 172.100.100.104
+      ports:
+        - '22004:22'
+        - '8004:80'
+        - '44304:443'
+
+    EOS2:
+      kind: ceos
+      startup-config: ./containerlab-examples/ring/configs/eos2.cfg
+      mgmt_ipv4: 172.100.100.105
+      ports:
+        - '22005:22'
+        - '8005:80'
+        - '44305:443'
+
+    EOS3:
+      kind: ceos
+      startup-config: ./containerlab-examples/ring/configs/eos3.cfg
+      mgmt_ipv4: 172.100.100.106
+      ports:
+        - '22006:22'
+        - '8006:80'
+        - '44306:443'
+
+  links:
+########################
+# Ring Interconnects   #
+########################
+    - endpoints: ["CSR1:eth1", "CSR2:eth1"]
+    - endpoints: ["CSR2:eth2", "EOS1:et1"]
+    - endpoints: ["EOS1:et2", "CSR3:eth1"]
+    - endpoints: ["CSR3:eth2", "EOS2:et1"]
+    - endpoints: ["EOS2:et2", "EOS3:et1"]
+    - endpoints: ["EOS3:et2", "CSR1:eth2"]
