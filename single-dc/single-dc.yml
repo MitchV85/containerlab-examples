@@ -1,0 +1,217 @@
+####################################################################################
+# Maintained by Mitch Vaughan                                                      #
+# End host docker repo: https://hub.docker.com/repository/docker/mitchv85/ohv-host #
+# ContainerLab Examples repo: https://github.com/MitchV85/containerlab-examples    #
+#                                                                                  #
+#                                                                                  #
+# More topologies will be added over time                                          #
+####################################################################################
+
+name: single-dc
+prefix: ""
+
+mgmt:
+  network: statics
+  ipv4_subnet: 172.100.100.0/24
+
+topology:
+
+  defaults:
+    env:
+      INTFTYPE: et #Setting this environment variable to 'et' is required to support ISIS/OSPF on cEOS
+
+  kinds:
+    ceos:
+      image: ceos:4.27.1.1F
+
+    vr-csr:
+      image: vrnetlab/vr-csr:17.03.02
+
+  nodes:
+
+#########################
+# Spines                #
+#########################
+
+    spine1:
+      kind: ceos
+      startup-config: ./containerlab-examples/single-dc/configs/spine1.cfg
+      mgmt_ipv4: 172.100.100.101
+      ports:
+        - '22001:22'
+        - '8001:80'
+        - '44301:443'
+
+    spine2:
+      kind: ceos
+      startup-config: ./containerlab-examples/single-dc/configs/spine2.cfg
+      mgmt_ipv4: 172.100.100.102
+      ports:
+        - '22002:22'
+        - '8002:80'
+        - '44302:443'
+
+#########################
+# Leafs / Leaves?       #
+#########################
+
+    leaf1:
+      kind: ceos
+      startup-config: ./containerlab-examples/single-dc/configs/leaf1.cfg
+      mgmt_ipv4: 172.100.100.103
+      ports:
+        - '22003:22'
+        - '8003:80'
+        - '44303:443'
+
+    leaf2:
+      kind: ceos
+      startup-config: ./containerlab-examples/single-dc/configs/leaf2.cfg
+      mgmt_ipv4: 172.100.100.104
+      ports:
+        - '22004:22'
+        - '8004:80'
+        - '44304:443'
+
+    leaf3:
+      kind: ceos
+      startup-config: ./containerlab-examples/single-dc/configs/leaf3.cfg
+      mgmt_ipv4: 172.100.100.105
+      ports:
+        - '22005:22'
+        - '8005:80'
+        - '44305:443'
+
+    leaf4:
+      kind: ceos
+      startup-config: ./containerlab-examples/single-dc/configs/leaf4.cfg
+      mgmt_ipv4: 172.100.100.106
+      ports:
+        - '22006:22'
+        - '8006:80'
+        - '44306:443'
+
+#########################
+# Routers               #
+#########################
+
+    R1:
+      kind: vr-csr
+      mgmt_ipv4: 172.100.100.107
+      ports:
+        - '22007:22'
+        - '8007:80'
+        - '44307:443'
+
+    R2:
+      kind: vr-csr
+      mgmt_ipv4: 172.100.100.108
+      ports:
+        - '22008:22'
+        - '8008:80'
+        - '44308:443'
+
+    R3:
+      kind: vr-csr
+      mgmt_ipv4: 172.100.100.109
+      ports:
+        - '22009:22'
+        - '8009:80'
+        - '44309:443'
+
+#########################
+# Data Center A - Hosts #
+#########################
+
+    HostA:
+      kind: linux
+      image: mitchv85/ohv-host
+      mgmt_ipv4: 172.100.100.201
+      ports:
+        - '22201:22'
+      exec:
+        - bash /usr/local/bin/hostnetconfig.sh -b -i 10.10.10.101/24 -g 10.10.10.1 -m 10.11.11.0/24
+
+    HostB:
+      kind: linux
+      image: mitchv85/ohv-host
+      mgmt_ipv4: 172.100.100.202
+      ports:
+        - '22202:22'
+      exec:
+        - bash /usr/local/bin/hostnetconfig.sh -b -i 10.70.70.101/24 -g 10.70.70.1 -m 10.11.11.0/24
+
+    HostC:
+      kind: linux
+      image: mitchv85/ohv-host
+      mgmt_ipv4: 172.100.100.203
+      ports:
+        - '22203:22'
+      exec:
+        - bash /usr/local/bin/hostnetconfig.sh -b -i 10.20.20.101/24 -g 10.20.20.1 -m 10.11.11.0/24
+
+    HostD:
+      kind: linux
+      image: mitchv85/ohv-host
+      mgmt_ipv4: 172.100.100.204
+      ports:
+        - '22204:22'
+      exec:
+        - bash /usr/local/bin/hostnetconfig.sh -b -i 10.40.40.101/24 -g 10.40.40.1 -m 10.11.11.0/24
+
+  links:
+####################
+# spine1 to LEAF   #
+####################
+    - endpoints: ["spine1:et1_1", "leaf1:et53_1"]
+    - endpoints: ["spine1:et2_1", "leaf2:et53_1"]
+    - endpoints: ["spine1:et3_1", "leaf3:et53_1"]
+    - endpoints: ["spine1:et4_1", "leaf4:et53_1"]
+    - endpoints: ["spine1:et5_1", "R1:eth1"]
+    - endpoints: ["spine1:et6_1", "R2:eth1"]
+####################
+# spine2 to LEAF   #
+####################
+    - endpoints: ["spine2:et1_1", "leaf1:et54_1"]
+    - endpoints: ["spine2:et2_1", "leaf2:et54_1"]
+    - endpoints: ["spine2:et3_1", "leaf3:et54_1"]
+    - endpoints: ["spine2:et4_1", "leaf4:et54_1"]
+    - endpoints: ["spine2:et5_1", "R1:eth2"]
+    - endpoints: ["spine2:et6_1", "R2:eth2"]
+####################################
+# leaf1 / leaf2 MLAG PEER-LINK     #
+####################################
+    - endpoints: ["leaf1:et55_1", "leaf2:et55_1"]
+    - endpoints: ["leaf1:et56_1", "leaf2:et56_1"]
+####################################
+# leaf3 / leaf4 MLAG PEER-LINK     #
+####################################
+    - endpoints: ["leaf3:et55_1", "leaf4:et55_1"]
+    - endpoints: ["leaf3:et56_1", "leaf4:et56_1"]
+####################################
+# Router Interconnects             #
+####################################
+    - endpoints: ["R1:eth3", "R3:eth1"]
+    - endpoints: ["R2:eth3", "R3:eth2"]
+
+
+#######################
+# HostA Connectivity  #
+#######################
+    - endpoints: ["leaf1:et1", "HostA:eth1"]
+    - endpoints: ["leaf2:et1", "HostA:eth2"]
+#######################
+# HostB Connectivity  #
+#######################
+    - endpoints: ["leaf1:et2", "HostB:eth1"]
+    - endpoints: ["leaf2:et2", "HostB:eth2"]
+#######################
+# HostC Connectivity  #
+#######################
+    - endpoints: ["leaf3:et1", "HostC:eth1"]
+    - endpoints: ["leaf4:et1", "HostC:eth2"]
+#######################
+# HostD Connectivity  #
+#######################
+    - endpoints: ["leaf3:et2", "HostD:eth1"]
+    - endpoints: ["leaf4:et2", "HostD:eth2"]

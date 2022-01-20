@@ -18,7 +18,7 @@ topology:
 
   defaults:
     env:
-      INTFTYPE: et
+      INTFTYPE: et #Setting this environment variable to 'et' is required to support ISIS/OSPF on cEOS
 
   kinds:
     ceos:
