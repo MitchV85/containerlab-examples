@@ -49,8 +49,9 @@ topology:
         - '8002:80'
         - '44302:443'
 
-    CSR3:
-      kind: vr-csr
+    FRR1:
+      kind: linux
+      image: frrouting/frr:latest
       mgmt_ipv4: 172.100.100.103
       ports:
         - '22003:22'
@@ -90,7 +91,7 @@ topology:
 ########################
     - endpoints: ["CSR1:eth1", "CSR2:eth1"]
     - endpoints: ["CSR2:eth2", "EOS1:et1"]
-    - endpoints: ["EOS1:et2", "CSR3:eth1"]
-    - endpoints: ["CSR3:eth2", "EOS2:et1"]
+    - endpoints: ["EOS1:et2", "FRR1:eth1"]
+    - endpoints: ["FRR1:eth2", "EOS2:et1"]
     - endpoints: ["EOS2:et2", "EOS3:et1"]
     - endpoints: ["EOS3:et2", "CSR1:eth2"]
